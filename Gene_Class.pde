@@ -71,7 +71,7 @@ class Gene {
         // using a for-loop to get all of the "insertion's" in input2
         for (int column = col; column >= 0; column--) {
           first_input_string = str(input1.charAt(column));
-          second_input_string = str(input2.charAt(row));
+          second_input_string = "-";
           String[] nucleotide_pos = {first_input_string, second_input_string};
           all_align.add(nucleotide_pos);
         }
@@ -79,7 +79,7 @@ class Gene {
       else if (row > 0 && col == 0) {
         // using a for-loop to get all of the "insertion's" in input1
         for (int input1_row = row; input1_row >= 0; input1_row--) {
-          first_input_string = str(input1.charAt(col));
+          first_input_string = "-";
           second_input_string = str(input2.charAt(input1_row));
           String[] new_nucleotide_pos = {first_input_string, second_input_string};
           all_align.add(new_nucleotide_pos);
@@ -135,5 +135,91 @@ class Gene {
       }
     }
     return all_align;
+  }
+  
+  String[] account_fillers(ArrayList<String[]> pair_alignments) {
+    String string1return = "";
+    String string2return = "";
+    
+    for (String[] pair_aligned: pair_alignments) {
+      string1return += pair_aligned[0];
+      string2return += pair_aligned[1];
+    }
+    
+    String[] gene_pair = {string1return, string2return};
+    return gene_pair;
+  }
+  
+  void display_alignment(String[] gene_pair) {
+    pushMatrix();
+    float orig_x = (X_of_mouse - x_translate) / prev_zoom;
+    float new_x = orig_x * zoomFactor;
+    x_translate = X_of_mouse - new_x; 
+    translate(x_translate, 0);
+    //translate((X_of_mouse - X_of_mouse*zoomFactor), 0);
+   println("zoom factor: ", zoomFactor);
+   println("prev_zoom: ", prev_zoom);
+   println("x_of_mouse: ", X_of_mouse);
+   println("orig_x: ", orig_x);
+   println("new_x: ", new_x);
+   println("x_translate: ", x_translate);
+   //delay(1000);
+   prev_zoom = zoomFactor;
+    
+    String Gene1 = gene_pair[0];
+    String Gene2 = gene_pair[1];
+    
+   // println("This is Gene1: ", Gene1);
+    //println("This is Gene2: ", Gene2);
+    
+    
+    
+    // Red identifies a mutation
+    // Blue is for matches in the DNA Sequence
+    
+    int margin = 0;
+    
+    // initially starts at the maximum zoomed out state
+    
+    stroke(0);
+    strokeWeight(0);
+    float nucleotide_width = (zoomFactor*float(width-2*margin))/((max(Gene1.length(), Gene2.length()))); 
+    // it does not matter which gene I choose since they both have the same length
+    
+   // println("Nucleotide_width: ",nucleotide_width);
+    //println("Gene1 length: ", Gene1.length());
+    //println("Gene2 length: ", Gene2.length());
+    //println("Max length: ", max(Gene1.length(), Gene2.length()));
+    
+    //dividing line between the two genes
+    line(0+margin, height/2, width-margin, height/2);
+    
+    // for loop to draw the rectangles for the second gene
+    for (int base_num = 0; base_num < Gene2.length(); base_num++) {
+      if (Gene2.charAt(base_num) == (Gene1.charAt(base_num))) {
+        fill(0, 100, 100);
+      }
+      else {
+        fill(100, 100, 0);
+      }
+      if (margin+base_num*nucleotide_width + X_of_mouse - X_of_mouse*zoomFactor <= X_of_mouse && margin+base_num*nucleotide_width + nucleotide_width + X_of_mouse - X_of_mouse*zoomFactor > X_of_mouse) {
+        println("base under mouse: ", base_num);
+        println("base X: ", margin+base_num*nucleotide_width+ X_of_mouse - X_of_mouse*zoomFactor);
+        println("nucleotide_width: ", nucleotide_width);
+        println(millis());       
+      }
+      //println("this is: ", margin+base_num*nucleotide_width);
+      rect(margin+base_num*nucleotide_width, height/2-50, nucleotide_width, 50);
+      rect(margin+base_num*nucleotide_width, height/2, nucleotide_width, 50);
+      textSize(25);
+      fill(0, 0, 0);
+      if (int(nucleotide_width) >= 33) {
+        String other_base_letter = str(Gene1.charAt(base_num));
+        text(other_base_letter, margin+nucleotide_width*(float(base_num)+0.35), height/2 - 15);
+        String base_letter = str(Gene2.charAt(base_num));
+        text(base_letter, margin+nucleotide_width*(float(base_num)+0.35), height/2 + 35);
+      }
+    }
+    popMatrix();
   }
 }
