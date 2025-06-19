@@ -5,12 +5,15 @@ class Gene {
   
   Gene() {}
   
-  int amount_of_alignments(String input1, String input2) {
+  int amount_of_alignments(String first_input, String second_input) {
     // Levenstein distance - Program 
     // Input: two strings
     // Output: integer that represents the degree of similarity
-    String string1 = input1;
-    String string2 = input2;
+    input1 = first_input;
+    input2 = second_input;
+    
+    String string1 = first_input;
+    String string2 = second_input;
     
     distances = new int[string2.length()+1][string1.length()+1];
     
@@ -56,14 +59,81 @@ class Gene {
     return alignment_amount;
   }
   
-  ArrayList<String> align_list(int row, int col) {
-  if (row == 0 || col == 0) {
-  
-  }  
-  String[] genes_aligned = {};
-    
-    genes_aligned = append(genes_aligned, );
-    return genes_aligned
-  
+  ArrayList<String[]> align_list(int row, int col) {
+    ArrayList<String[]> all_align = new ArrayList<String[]>();
+    if (row == 0 || col == 0) {
+      String first_input_string = str(input1.charAt(col));
+      String second_input_string = str(input2.charAt(row));
+      String[] position_letters = {first_input_string, second_input_string};
+      all_align.add(position_letters);
+      if (row == 0 && col == 0) {}
+      else if (row == 0 && col > 0) {
+        // using a for-loop to get all of the "insertion's" in input2
+        for (int column = col; column >= 0; column--) {
+          first_input_string = str(input1.charAt(column));
+          second_input_string = str(input2.charAt(row));
+          String[] nucleotide_pos = {first_input_string, second_input_string};
+          all_align.add(nucleotide_pos);
+        }
+      }
+      else if (row > 0 && col == 0) {
+        // using a for-loop to get all of the "insertion's" in input1
+        for (int input1_row = row; input1_row >= 0; input1_row--) {
+          first_input_string = str(input1.charAt(col));
+          second_input_string = str(input2.charAt(input1_row));
+          String[] new_nucleotide_pos = {first_input_string, second_input_string};
+          all_align.add(new_nucleotide_pos);
+        }
+      }
+      // it is like a free ride situation in merge sort of insertion sort! (wanted this point to stand out!)
+      // all of the rest of the nucleotides left over in one string
+      // are either insertions to one string or deletions to the other
+    }
+    else {
+      if ((input1.charAt(col))== input2.charAt(row)) {
+        all_align = align_list(row-1, col-1); 
+        String first_input_string = str(input1.charAt(col));
+        String second_input_string = str(input2.charAt(row));
+        String[] position_letters = {first_input_string, second_input_string};
+        all_align.add(position_letters);
+      }
+      else {
+        int minimum_case = min(distances[row-1][col], distances[row][col-1], distances[row-1][col-1]);
+        // NOTE: in the case where two or more of these values are the same, it has been proven that it does not matter which one of these that is chosen,
+        // The amount_of_alignments is the same, it just means that the alignment combination is a little bit different
+        
+        // As a matter of preference, I have chosen to make a swap (respresenting a base pair substitution mutation in the DNA) the case that is chosen
+        // when there are more than one possibilties. 
+        // The is a matter of preference, since a base pair substituion looks better on the UI than a deletion or insertion
+        
+        if (minimum_case == distances[row-1][col-1]) {
+          // this is the case for a "swap" mutation
+          all_align = align_list(row-1, col-1); 
+          String first_input_string = str(input1.charAt(col));
+          String second_input_string = str(input2.charAt(row));
+          String[] position_letters = {first_input_string, second_input_string};
+          all_align.add(position_letters);
+        }
+        else if (minimum_case == distances[row-1][col]) {
+          // this is the case for a "insertion" mutation for input2
+          // otherwise known as a "deletion" mutation for input1
+          all_align = align_list(row-1, col); 
+          String first_input_string = "-";
+          String second_input_string = str(input2.charAt(row));
+          String[] position_letters = {first_input_string, second_input_string};
+          all_align.add(position_letters);
+        }
+        else if (minimum_case == distances[row][col-1]) {
+          // this is the case for a "deletion" mutation for input2
+          // otherwise known as an "insertion" mutation for input1
+          all_align = align_list(row, col-1); 
+          String first_input_string = str(input1.charAt(col));
+          String second_input_string = "-";
+          String[] position_letters = {first_input_string, second_input_string};
+          all_align.add(position_letters);
+        }        
+      }
+    }
+    return all_align;
   }
 }
