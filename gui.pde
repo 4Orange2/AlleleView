@@ -72,7 +72,10 @@ public void button1_click1(GButton source, GEvent event) { //_CODE_:button1:9103
     for (String[] element: all_align) {
       printArray(element);
     }
+    gene_pair = Nucleotides.account_fillers(all_align);
+    compare_display = true;
     alignment_display = true;
+    
   }
 } //_CODE_:button1:910330:
 
@@ -91,6 +94,14 @@ public void textarea1_change1(GTextArea source, GEvent event) { //_CODE_:textare
 
 public void textarea2_change1(GTextArea source, GEvent event) { //_CODE_:textarea2:774808:
 } //_CODE_:textarea2:774808:
+
+public void button3_click1(GButton source, GEvent event) { //_CODE_:button3:512677:
+  println("button3 - GButton >> GEvent." + event + " @ " + millis());
+} //_CODE_:button3:512677:
+
+public void shift_alignment_gene(GCustomSlider source, GEvent event) { //_CODE_:shift_alignment:855943:
+  println("shift_alignment - GCustomSlider >> GEvent." + event + " @ " + millis());
+} //_CODE_:shift_alignment:855943:
 
 
 
@@ -124,7 +135,7 @@ public void createGUI(){
   label3.setText("Enter second gene sequence here:");
   label3.setOpaque(false);
   button2 = new GButton(Gene_Builder, 375, 362, 80, 30);
-  button2.setText("Reset");
+  button2.setText("Reset All");
   button2.addEventHandler(this, "button2_click1");
   textarea1 = new GTextArea(Gene_Builder, 19, 51, 201, 159, G4P.SCROLLBARS_NONE);
   textarea1.setOpaque(true);
@@ -132,6 +143,15 @@ public void createGUI(){
   textarea2 = new GTextArea(Gene_Builder, 275, 49, 212, 161, G4P.SCROLLBARS_NONE);
   textarea2.setOpaque(true);
   textarea2.addEventHandler(this, "textarea2_change1");
+  button3 = new GButton(Gene_Builder, 401, 298, 80, 30);
+  button3.setText("Re-centre Alignment");
+  button3.addEventHandler(this, "button3_click1");
+  shift_alignment = new GCustomSlider(Gene_Builder, 352, 233, 100, 40, "grey_blue");
+  shift_alignment.setLimits(0.5, 0.0, 1.0);
+  shift_alignment.setNbrTicks(5);
+  shift_alignment.setNumberFormat(G4P.DECIMAL, 2);
+  shift_alignment.setOpaque(false);
+  shift_alignment.addEventHandler(this, "shift_alignment_gene");
   Gene_Builder.loop();
 }
 
@@ -146,3 +166,5 @@ GLabel label3;
 GButton button2; 
 GTextArea textarea1; 
 GTextArea textarea2; 
+GButton button3; 
+GCustomSlider shift_alignment; 
