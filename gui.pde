@@ -65,7 +65,13 @@ public void button1_click1(GButton source, GEvent event) { //_CODE_:button1:9103
         }
       }
     }
+    
+    
     alignment_amnt = Nucleotides.amount_of_alignments(first_alignment_string, second_alignment_string);
+    ArrayList<String[]> all_align = Nucleotides.align_list(second_alignment_string.length()-1, first_alignment_string.length()-1);
+    for (String[] element: all_align) {
+      printArray(element);
+    }
     alignment_display = true;
   }
 } //_CODE_:button1:910330:
