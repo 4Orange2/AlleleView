@@ -1,15 +1,33 @@
 /*
-- List of conditions being displayed with good inheritance
+
+
+- List of specific conditions available for display (with the sources that they came from):
+- These sequences all came from GenBank, a website of the National Library of Medicine, an official website of the United States Government 
 
 Inherited disorders:
-- Thalassemia
+- Thalassemia 
+- Thalassemia Positive source: (https://www.ncbi.nlm.nih.gov/nucleotide/M36640.1?report=genbank&log$=nuclalign&blast_rank=1&RID=5CYJAUWS013)
+- Thalassemia Negative source: (https://www.ncbi.nlm.nih.gov/nuccore/NG_059281.1?report=fasta)
+
+
 - Sickle Cell Anemia
+- Sickle Cell Positive source: (https://www.ncbi.nlm.nih.gov/nucleotide/M25113.1?report=genbank&log$=nuclalign&blast_rank=1&RID=5CYTNGHN013)
+- Sickle Cell Negative source: (https://www.ncbi.nlm.nih.gov/nucleotide/V00497.1?report=genbank&log$=nuclalign&blast_rank=2&RID=5CYTNGHN013)
+
 
 Cancers:
 - Acute Myeloid Leukemia
-- Melanoma (A111V mutation)
-- Melanoma (C315R)
+- Leukemia Positive source: (https://www.ncbi.nlm.nih.gov/nucleotide/NM_199185.4?report=genbank&log$=nuclalign&blast_rank=1&RID=5CYWF7YN013)
+- Leukemia Negative source: (https://www.ncbi.nlm.nih.gov/nucleotide/BC009623.3?report=genbank&log$=nuclalign&blast_rank=1&RID=5CYY9EW4013)
 
+
+- Melanoma (A111V mutation)
+- Melanoma A111V Positive source: (https://www.ncbi.nlm.nih.gov/nucleotide/AY363625.1?report=genbank&log$=nuclalign&blast_rank=1&RID=5CYZWWNZ013)
+- Melanoma A111V Negative source: (https://www.ncbi.nlm.nih.gov/nuccore/KT863241.1?report=fasta)
+
+- Melanoma (C315R)
+- Melanoma C315R Positive source: (https://www.ncbi.nlm.nih.gov/nucleotide/AY363624.1?report=genbank&log$=nuclalign&blast_rank=1&RID=5CZ4UXUD013)
+- Melanoma C315R Negative source: (https://www.ncbi.nlm.nih.gov/nucleotide/KT863241.1?report=genbank&log$=nuclalign&blast_rank=6&RID=5CZ6D9VP013)
 */
 
 import java.awt.*; // Imports the Font class
@@ -144,7 +162,6 @@ void mouseWheel(MouseEvent event) {
     // i.e. with two finders on touchpad or scrolling with the mouse
     delta = event.getCount();  // Get the scroll amount (delta)
     if (compare_display == true) {
-      //println("HELLO");
       if (delta > 0) {
         // Zoom out (positive delta)
         if (zoomFactor - 1.4 >= 1) {
