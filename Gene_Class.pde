@@ -31,11 +31,7 @@ class Gene {
       for (int col_num = 1; col_num <= string1.length(); col_num++) {
         if (string2.charAt(row_num-1) == string1.charAt(col_num-1)) { 
           distances[row_num][col_num] = min(distances[row_num-1][col_num-1], distances[row_num-1][col_num]+1, distances[row_num][col_num-1]+1);
-          if (distances[row_num][col_num] == 1) {
-            //println("this is row_num: ", row_num);
-            //println("this is col_num: ", col_num);
-            //delay(1000000000);
-          }
+          if (distances[row_num][col_num] == 1) {}
         }
         else {
           distances[row_num][col_num] = min(distances[row_num-1][col_num], distances[row_num][col_num-1], distances[row_num-1][col_num-1]) + 1;
@@ -159,8 +155,6 @@ class Gene {
   ArrayList<String[]> align_list_non_rec(int row, int col) {
     ArrayList<String[]> all_align = new ArrayList<String[]>();
     while (row >= 0 || col >= 0) {
-            //println("entered align_list for row " + row + " and col " + col);
-            //delay(5000);
       if (row < 0 || col < 0) {
         if (row < 0) {
           // using a for-loop to get all of the "insertion's" in input2
@@ -314,8 +308,6 @@ class Gene {
     
     // this chunk of code is for calculating the GUI slider limits
     // and x_translate special cases
-    //println("this is shiftFactor: ", shiftFactor);
-    //println("this is x_translate: ", x_translate);
     float x_end_strip = (shiftFactor+margin+(Gene2.length())*nucleotide_width+x_translate);
     float x_beg_strip = (shiftFactor+margin+x_translate);
     
@@ -327,9 +319,7 @@ class Gene {
       //upper_limit is the distance between the x_end_strip and the end wall of the canvas
       upper_limit = 0; 
     }
-    if (shiftFactor+margin+(Gene2.length())*nucleotide_width+x_translate <= width-margin) {
-      //println("Hello");
-      
+    if (shiftFactor+margin+(Gene2.length())*nucleotide_width+x_translate <= width-margin) {      
       x_translate = (width-margin)-(shiftFactor+margin+(Gene2.length())*nucleotide_width);
     }
     
