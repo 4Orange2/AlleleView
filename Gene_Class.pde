@@ -314,8 +314,8 @@ class Gene {
     
     // this chunk of code is for calculating the GUI slider limits
     // and x_translate special cases
-    println("this is shiftFactor: ", shiftFactor);
-    println("this is x_translate: ", x_translate);
+    //println("this is shiftFactor: ", shiftFactor);
+    //println("this is x_translate: ", x_translate);
     float x_end_strip = (shiftFactor+margin+(Gene2.length())*nucleotide_width+x_translate);
     float x_beg_strip = (shiftFactor+margin+x_translate);
     
