@@ -38,8 +38,6 @@ public void dropList1_click1(GDropList source, GEvent event) { //_CODE_:dropList
         String[] second_output_var = loadStrings("Human_Beta_Globin.txt");
         String second_output_var_str = to_String(second_output_var);
         textarea2.setText(second_output_var_str);
-        //println("this is Sickle_Cell_Length: ", output_var_str.length());
-        //delay(10000);
       }
       else if (disease_preference.equals("Beta-Thalassemia")) {
         String[] output_var = loadStrings("Beta_Thalassemia.txt");
@@ -71,9 +69,6 @@ public void button1_click1(GButton source, GEvent event) { //_CODE_:button1:9103
   input_txt1 = textarea1.getText();
   input_txt2 = textarea2.getText();
   
-  println("this is: ", input_txt1);
-  println("this is 2: ", input_txt2);
-  
   if (input_txt1.equals("") || input_txt2.equals("")) {
     error_message = true;
   }
@@ -87,7 +82,6 @@ public void button1_click1(GButton source, GEvent event) { //_CODE_:button1:9103
         for (int i = 0; i < string_considered.length(); i++) {
           int unicode_value = int(string_considered.charAt(i));
           if (unicode_value == 65 || unicode_value == 67 || unicode_value == 71 || unicode_value == 84) {
-            //println("1");
             first_alignment_string += string_considered.charAt(i); 
           }
           else {}
@@ -103,7 +97,6 @@ public void button1_click1(GButton source, GEvent event) { //_CODE_:button1:9103
         for (int i = 0; i < string_consider.length(); i++) {
           int unicode_value = int(string_consider.charAt(i));
           if (unicode_value == 65 || unicode_value == 67 || unicode_value == 71 || unicode_value == 84) {
-            //println("2");
             second_alignment_string += string_consider.charAt(i);
           }
           else {}
@@ -220,7 +213,6 @@ public void dropList2_click1(GDropList source, GEvent event) { //_CODE_:dropList
   }
   else {
     disease_preference = dropList2.getSelectedText();
-    println("in dropList2_click1 ", disease_preference);
     if (disease_preference.equals("None") == false) {
       cancer_selected = true;
       if (disease_preference.equals("Acute Myeloid Leukemia")) {
